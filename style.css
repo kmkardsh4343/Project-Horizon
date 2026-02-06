@@ -1,30 +1,205 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 50%, #000 100%),
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    background-size: 400% 400%, 300% 300%, 300% 300%, 300% 300%;
+    animation: galaxy 30s ease infinite, nebula 40s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+@keyframes galaxy {
+    0% {
+        background-position: 0% 50%, 0% 80%, 0% 20%, 0% 40%;
+    }
+    33% {
+        background-position: 100% 50%, 100% 80%, 100% 20%, 100% 40%;
+    }
+    66% {
+        background-position: 50% 100%, 50% 100%, 50% 100%, 50% 100%;
+    }
+    100% {
+        background-position: 0% 50%, 0% 80%, 0% 20%, 0% 40%;
+    }
+}
+
+@keyframes nebula {
+    0%, 100% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+    25% {
+        filter: hue-rotate(90deg) brightness(1.1);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(0.9);
+    }
+    75% {
+        filter: hue-rotate(270deg) brightness(1.05);
+    }
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1.5px 1.5px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #ddd, transparent),
+        radial-gradient(1px 1px at 50px 20px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 70px 90px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 110px 60px, #fff, transparent),
+        radial-gradient(2px 2px at 180px 10px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 220px 50px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 250px 150px;
+    animation: twinkle 6s linear infinite, moveStars 20s linear infinite;
+}
+
+.spacerocket {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 100px;
+    background: linear-gradient(to top, #ccc, #fff);
+    border-radius: 50% 50% 0 0;
+    transform: translate(-50%, -50%);
+    animation: rocketLaunch 5s ease-in-out infinite;
+}
+
+.spacerocket::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(to top, #ff4500, #ffa500);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    animation: flame 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes rocketLaunch {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-20px);
+    }
+}
+
+@keyframes flame {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scaleY(1);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translateX(-50%) scaleY(1.2);
+    }
+}
+
+@keyframes rocketMove {
+    0% {
+        transform: translate(-50%, -50%) translateX(-200px) translateY(0);
+    }
+    25% {
+        transform: translate(-50%, -50%) translateX(0) translateY(-100px);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateX(200px) translateY(0);
+    }
+    75% {
+        transform: translate(-50%, -50%) translateX(0) translateY(100px);
+    }
+    100% {
+        transform: translate(-50%, -50%) translateX(-200px) translateY(0);
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes moveStars {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 .container {
-    background-color: white;
+    background: linear-gradient(135deg, rgba(27, 39, 53, 0.9) 0%, rgba(9, 10, 15, 0.9) 100%);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.5), 0 0 40px rgba(255, 0, 0, 0.5), 0 0 60px rgba(0, 255, 0, 0.5), 0 0 80px rgba(0, 0, 255, 0.5);
     max-width: 600px;
     width: 100%;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: rgbGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes rgbGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(74, 144, 226, 0.5), 0 0 40px rgba(255, 0, 0, 0.5), 0 0 60px rgba(0, 255, 0, 0.5), 0 0 80px rgba(0, 0, 255, 0.5);
+    }
+    33% {
+        box-shadow: 0 0 20px rgba(74, 144, 226, 0.5), 0 0 40px rgba(0, 255, 0, 0.5), 0 0 60px rgba(0, 0, 255, 0.5), 0 0 80px rgba(255, 0, 0, 0.5);
+    }
+    66% {
+        box-shadow: 0 0 20px rgba(74, 144, 226, 0.5), 0 0 40px rgba(0, 0, 255, 0.5), 0 0 60px rgba(255, 0, 0, 0.5), 0 0 80px rgba(0, 255, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(74, 144, 226, 0.5), 0 0 40px rgba(255, 0, 0, 0.5), 0 0 60px rgba(0, 255, 0, 0.5), 0 0 80px rgba(0, 0, 255, 0.5);
+    }
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #ff4444;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
 }
 
 #question {
     font-size: 1.2em;
     margin-bottom: 20px;
+    color: white;
+    background-color: #4a90e2;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .option {
@@ -34,7 +209,8 @@ h1 {
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: #e0f0ff;
+    color: #333;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -75,4 +251,44 @@ h1 {
 #score {
     font-size: 1.2em;
     color: #4CAF50;
+    animation: scoreGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes scoreGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(76, 175, 80, 1);
+    }
+}
+
+@keyframes thankYouGlow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
+        transform: scale(1);
+    }
+    100% {
+        text-shadow: 0 0 30px rgba(255, 68, 68, 1);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes dramaticShow {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(-10deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+#result.show {
+    animation: dramaticShow 1s ease-out;
 }
